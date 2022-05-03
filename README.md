@@ -11,7 +11,7 @@ In the edge-privacy model, edges are private while nodes can be publicly known. 
 ## Graph statistics algorithms
 Graph statistics algorithm's outputs are graph statistics. The statistics are either scalars (such as average degree, number of triangles, etc) or histograms/distributions (such as degree distributions). Differentially private graph statistics algorithms can be implemented in edge or node privacy model.
 
-### Triangle Counting Algorithms (triangle_counting)
+### Triangle Counting Algorithms [triangle_counting](https://github.com/DungxNguyen/Graph_DP_Algorithms/tree/master/triangle_counting)
 - shiva.py implements the node differentially private triangle counting algorithm described by "Analyzing graphs with node differential privacy".
 
 Algorithms in this sub-section are implemented in Python 3. They requires the following libraries (can be installed via pip/conda):
@@ -42,5 +42,27 @@ Note that the file will contains 10 lines like this because we set it up for 10 
 ## Graph structure algorithms
 Graph structure algorithms output a sub-structure of the input graph. Therefore, they are only meaningful in the edge-privacy model since outputting a sub-structure exposes the private information (nodes of the input graph must be kept private).
 
-### Densest Subgraph Algorithms (densest_subgraph)
+### Densest Subgraph Algorithms [densest_subgraph](https://github.com/DungxNguyen/Graph_DP_Algorithms/tree/master/densest_subgraph)
+-  baseline.scala implements the Charikar's greedy algorithm for densest subgraph detection, described in "Greedy approximation algorithms for finding dense components in a graph"
 -  sequestial.scala implements the sequential variant of the DP densest subgraph algorithms in "Differentially Private Densest Subgraph Detection"
+
+Algorithms in this sub-section are implemented using Scala 2. The scala environment and project's dependencies can be automatically retrieved by [sbt](https://www.scala-sbt.org/) tool. In the first run, go to the directory (densest_subgraph) and run "sbt compile". Sbt will create an environment with appropriate libraries and compile all source files.
+
+To run the differentially private densest subgraph algorithm, run "sbt "runMain densest.algorithm_name network epsilon delta repeat". The semantics of the parameters are the same with the above sub-section. For example, to run the sequential algorithm with epsilon = 0.1, delta = 0.0000001, and 10 times:
+"sbt "runMain densest.sequential 0.1 0.00000001 10"".
+
+Because the output of densest subgraph detection algorithm is a subgraph, the output of the algorithms will consist of 2 files: densest_\*.txt and densest_\*_sub.txt
+
+The first file looks like this:
+
+- (ca-GrQc,0.1,1.0E-6,10,ArrayBuffer(2.262771168649405, 1.3027027027027027, 2.346774193548387, 1.406545592130155, 1.5419580419580419, 0.16104868913857678, 0.058823529411764705, 2.362597114317425, 1.702884300229433, 2.6731640086631225))
+
+, which indicates the network, epsilon, delta, repeats and a list of the densities of output subgraphs (in this case, there are 10 outputs of 10 repeats).
+
+The second file contains the ids of nodes output by each run. For example, a line of the second file:
+- (2.6731640086631225,Set(10822, 5385, 5659, 19204, 24939, 12928, 1322, 2630, 23855, 24878, 3873, 2452, 21321, 15170, 16261, 18279, 16340, 1879,...)
+
+, where the first value is the density of the subgraph, followed by a list of node's ids of the subgraph.
+
+
+
