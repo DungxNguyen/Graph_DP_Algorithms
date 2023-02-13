@@ -20,16 +20,17 @@ Algorithms in this sub-section are implemented in Python 3. They requires the fo
 - networkx
 - gurobipy (the system must install gurobi in order to use gurobi for optimization)
 
-All algorithms have similar command line arguments to define their settings: python algorithm_name.py network_name epsilon delta repeat [params] solver
+All algorithms have similar command line arguments to define their settings: python algorithm_name.py network_file output_file epsilon delta repeat [params] solver
 - algorithm_name.py: for example, shiva.py, blocki_edge.py, etc
-- network_name: the name (without .txt) of the network file, e.g., ca-GrQc
+- network_file: the filename (with extension .txt) of the network file, e.g., "./ca-GrQc.txt"
+- output_file: the filename of the output file, e.g., ca-GrQc.csv
 - epsilon: a positive real number that indicates the privacy loss, e.g., 0.01, 0.1, 1, etc
 - delta: a small non-negative number that indicates the castatrophic probability that privacy doesn't hold, which is 0 (pure-DP) or << 1/n in which n is the database size
 - repeat: the number of instances to run
 - [params]: some algorithms requires extra parameters. E.g., shiva.py requires the maximum degree of a node in the graph (D). 
 - solver: gurobi or scipy
 
-For example to run Shiva et. al.'s algorithm with privacy loss of 1, with maximum degree D = 50 and repeats 10 times using scipy optimizer: python shiva.py ca-GrQc 1.0 0 10 [50] scipy
+For example to run Shiva et. al.'s algorithm with privacy loss of 1, with maximum degree D = 50 and repeats 10 times using scipy optimizer: python shiva.py /home/data/ca-GrQc.txt /home/data/output.csv 1.0 0 10 [50] scipy
 
 Outputs are written to respective .csv file. Each line contains the specific settings of each run of the algorithm (epsilon, delta, params, etc), the true count of triangles and the DP-output count of triangle. The spicific fields are: "times, privacy_model, alg_name, network, true_count, epsilon, delta, params, dp-count". For example this is one line of the result from the above setting:
 
@@ -48,10 +49,10 @@ Graph structure algorithms output a sub-structure of the input graph. Therefore,
 
 Algorithms in this sub-section are implemented using Scala 2. The scala environment and project's dependencies can be automatically retrieved by [sbt](https://www.scala-sbt.org/) tool. In the first run, go to the directory (densest_subgraph) and run "sbt compile". Sbt will create an environment with appropriate libraries and compile all source files.
 
-To run the differentially private densest subgraph algorithm, run "sbt "runMain densest.algorithm_name network epsilon delta repeat". The semantics of the parameters are the same with the above sub-section. For example, to run the sequential algorithm with epsilon = 0.1, delta = 0.0000001, and 10 times:
+To run the differentially private densest subgraph algorithm, run "sbt "runMain densest.algorithm_name network_file output_file subgraph_output_file epsilon delta repeat". The semantics of the parameters are the same with the above sub-section. For example, to run the sequential algorithm with epsilon = 0.1, delta = 0.0000001, and 10 times:
 "sbt "runMain densest.sequential 0.1 0.00000001 10"".
 
-Because the output of densest subgraph detection algorithm is a subgraph, the output of the algorithms will consist of 2 files: densest_\*.txt and densest_\*_sub.txt
+Because the output of densest subgraph detection algorithm is a subgraph, the output of the algorithms will consist of 2 files: output_file and subgraph_file 
 
 The first file looks like this:
 
