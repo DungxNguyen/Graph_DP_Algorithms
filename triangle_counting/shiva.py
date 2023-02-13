@@ -130,7 +130,7 @@ def average_degree(G):
 def max_degree(G):
     return max(val for (node, val) in G.degree())
 
-network_path = "../data_graphs/"
+# network_path = "../data_graphs/"
 
 # network_name = ["ca-GrQc", #5000
 #                 "ca-HepTh", #10000
@@ -141,19 +141,22 @@ network_path = "../data_graphs/"
 #                 "loc-gowalla_edges", #200000
 #                ]
 
-log_file = "shiva.csv"
+#log_file = "shiva.csv"
 
 
 def main():
-    csvfile = open(log_file, 'a')
+    network_file = sys.argv[1]
+    output_file = sys.argv[2]
+    epsilon = float(sys.argv[3])
+    delta = float(sys.argv[4])
+    reps = int(sys.argv[5])
+    params = sys.argv[6]
+    solver = sys.argv[7]
+
+
+    csvfile = open(output_file, 'a')
     result_writer = csv.writer(csvfile, delimiter=',',
                        quotechar='|', quoting=csv.QUOTE_MINIMAL)
-    net_name = sys.argv[1]
-    epsilon = float(sys.argv[2])
-    delta = float(sys.argv[3])
-    reps = int(sys.argv[4])
-    params = sys.argv[5]
-    solver = sys.argv[6]
 
     D = int(params[1:-1].split(',')[0])
     print("Net:", net_name)
@@ -163,7 +166,7 @@ def main():
     print("D:", D)
     print("Solver:", solver)
 
-    net = nx.read_edgelist(network_path + net_name + ".txt",
+    net = nx.read_edgelist(netwowrk_file,
                    create_using=nx.Graph(),
                    nodetype=int)
 

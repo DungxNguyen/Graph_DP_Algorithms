@@ -7,7 +7,7 @@ import scipy.optimize as opt
 import math
 import timeit
 
-network_path = "../data_graphs/ca-GrQc.txt"
+# network_path = "../data_graphs/ca-GrQc.txt"
 
 
 def triangle_count(net):

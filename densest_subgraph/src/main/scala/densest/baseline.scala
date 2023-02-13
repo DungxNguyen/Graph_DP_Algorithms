@@ -32,10 +32,11 @@ import java.io.File
 
   object baseline {
   def main(args: Array[String]): Unit = {
-    val graph = utils.loadGraph("../data_graphs/" + args(0) + ".txt")
+    //val graph = utils.loadGraph("../data_graphs/" + args(0) + ".txt")
+    val graph = utils.loadGraph(args(0))
 
-    val outputFile = "densest_baseline.txt"
-    val subgraphFile = "densest_baseline_sub.txt"
+    val outputFile = args(1) 
+    val subgraphFile = args(2)
 
     val net = args(0)
     val reps = 1

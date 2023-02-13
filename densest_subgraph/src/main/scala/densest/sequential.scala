@@ -10,15 +10,15 @@ import java.io.File
 
 object sequential {
   def main(args: Array[String]): Unit = {
-    val graph = utils.loadGraph("../data_graphs/" + args(0) + ".txt")
+    val graph = utils.loadGraph(args(0))
 
-    val outputFile = "densest_seq.txt"
-    val subgraphFile = "densest_seq_sub.txt"
+    val outputFile = args(1)
+    val subgraphFile = args(2)
 
     val net = args(0)
-    val epsilon = args(1).toDouble
-    val delta = args(2).toDouble
-    val reps = args(3).toInt
+    val epsilon = args(3).toDouble
+    val delta = args(4).toDouble
+    val reps = args(5).toInt
     
     val outputs : ArrayBuffer[Double] = ArrayBuffer()
     val runtimes : ArrayBuffer[Long] = ArrayBuffer()    
